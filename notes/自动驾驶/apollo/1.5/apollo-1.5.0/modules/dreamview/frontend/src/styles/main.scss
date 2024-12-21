@@ -1,0 +1,867 @@
+@import "media-queries";
+
+@mixin monitor-item-common-properties() {
+    display: flex;
+    list-style-type: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid #333333;
+    padding: 10px;
+    
+    .icon {
+        height: 20px;
+        width: 20px;
+    }
+
+    .text {
+        margin-left: 10px;
+        line-height: 150%;
+        max-width: 200px;
+        font-size: 12px;
+        character: 0px;
+        line: 20px;
+    }
+
+    .alert {
+        color: #D7466F;
+    }
+
+    .warn {
+        color: #A3842D;
+    }
+}
+
+body {
+    margin: 0px;
+    background-color: #031C31 !important;
+    overflow: hidden;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+/* This is the styles for the main canvas of the dreamview container.
+   It is applied to the major <div> of <Dreamview>. */
+.dreamview-canvas {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: -1;
+}
+
+.hidden {
+    display: none;
+}
+
+.sidebar {
+    position: absolute;
+    z-index: 100;
+
+    top: 150px;
+    left: 40px;
+
+    @include small-screen {
+        top: 100px;
+        left: 10px;
+    }
+
+    .button {
+        opacity: 0.7;
+        height: 60px;
+        width: 260px;
+        border: none;
+        padding: 20px;
+        display: block;
+        font-size: 14px;
+        text-align: left;
+        color: #FFFFFF;
+        background-color: #000000;
+
+        @include small-screen {
+            padding-top: 5px;
+            height: 10px;
+            width: 200px;
+        }
+    }
+
+    .button:focus {
+        outline: 0;
+    }
+
+    .button:active {
+        color: #30A5FF;
+    }
+
+    .active {
+        color: #30A5FF;
+    }
+
+    .button-corner {
+        clip-path: polygon(0% 0%, 80% 0%, 100% 50%, 100% 100%, 0% 100%);
+    }
+
+    .separator {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0;
+    }
+
+    .console {
+        background-color: rgba(74, 5, 24, 0.4);
+        border: none;
+        margin: 0px;
+        padding: 0px;
+        width: 260px;
+        height: 250px;
+        overflow: auto;
+        overflow-x: hidden;
+
+        @include small-screen {
+            height: 130px;
+            width: 200px;
+        }
+
+        .monitor-item {
+            @include monitor-item-common-properties();
+        }
+    }
+
+    .nav-side-menu {
+        overflow: auto;
+        background-color: #000000;
+        opacity: 0.6;
+        width: 260px;
+        height: 250px;
+        font-size: 14px;
+        color: #FFFFFF;
+        text-align: left;
+        z-index: 10 !important;
+
+        @include small-screen {
+            height: 180px;
+            width: 200px;
+        }
+
+        details {
+            summary {
+                line-height: 50px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+                @include small-screen {
+                    line-height: 25px;
+                }
+            
+                img {
+                    position: relative;
+                    transform: translate(70%, 30%);
+                    width: 30px;
+                    height: 30px;
+
+                    @include small-screen {
+                        transform: translate(120%, 20%);
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                    
+                span {
+                    padding-left: 35px;
+
+                    @include small-screen {
+                        padding-left: 20px;
+                    }
+                }
+            }
+            
+            summary::-webkit-details-marker {
+                float: right;
+                padding-top: 22px;
+                padding-right: 10px;
+
+                @include small-screen {
+                    padding-top: 8px;
+                }
+            }
+        }
+
+        details[open] {
+            background-color: #002848;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0px;
+            margin: 0;
+            cursor: pointer;
+            font-size: 12px;
+            background-color: #000F23;
+            
+            li {
+                line-height: 40px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-left: 6px;
+                margin-left: 0;
+                    
+                span {
+                    padding-left: 20px;
+                }
+            }
+                
+            li:hover {
+                background-color: #000000;
+            }
+        }
+
+        // Toggle switch
+        .switch {
+            position: relative;
+            transform: translate(35%, 25%);
+            width: 40px;
+            display: inline-block;
+        }
+        
+        .toggle-switch {
+            display: none;
+        }
+        
+        .toggle-switch-label {
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+            height: 20px;
+            padding: 0;
+            line-height: 20px;
+            border: 0px;
+            border-radius: 16px;
+            background-color: #3F4548;
+            transition: background-color 0.2s ease-in;
+        }
+        
+        .toggle-switch-label:before {
+            content: "";
+            display: block;
+            width: 16px;
+            margin: 2px;
+            background: #A0A0A0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 20px;
+            border-radius: 16px;
+            transition: all 0.2s ease-in;
+        }
+        
+        .toggle-switch:checked + .toggle-switch-label {
+            background-color: #0E3D62;
+        }
+        
+        .toggle-switch:checked + .toggle-switch-label,
+        .toggle-switch:checked + .toggle-switch-label:before {
+            border-color: #0E3D62;
+        }
+        
+        .toggle-switch:checked + .toggle-switch-label:before {
+            right: 0px;
+            background-color: #30A5FF;
+        }
+
+        // Radio button
+        input[type="radio"] {
+            display: none;
+        }
+        
+        #radio-selector-label {
+            position: relative;
+            transform: translate(65%, 30%);
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin-right: 6px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            background-color: #A0A0A0;
+            box-shadow: inset 1px 0 #A0A0A0;
+            border: 7px solid #3F4548;
+        }
+        
+        input[type="radio"]:checked + #radio-selector-label {
+            border: 7px solid #0E3D62;
+            background-color: #30A5FF;
+        }
+    }
+}
+
+// Adjust the scrollbar style.
+::-webkit-scrollbar {
+    width: 4px;
+    opacity: 0.3;
+    background-color: #FFFFFF;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555555;
+}
+
+::-webkit-scrollbar-thumb {
+    opacity: 0.8;
+    background-color: #30A5FF;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #30A5FF;
+}
+
+.notification-warn {
+    @include monitor-item-common-properties();
+
+    margin-top: 20px;
+    border: 1px solid #A3842D;
+    background-color: rgba(52, 39, 5, 0.3);
+}
+
+.notification-alert {
+    @include monitor-item-common-properties();
+
+    margin-top: 20px;
+    border: 1px solid #D7466F;
+    background-color: rgba(74, 5, 24, 0.3);
+}
+
+.status-bar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    background: linear-gradient(to bottom,
+                                rgba(3, 38, 68, 1) 0%,
+                                rgba(3, 38, 68, 1) 25%,
+                                rgba(4, 36, 65, 0.8) 50%,
+                                rgba(4, 36, 65, 0));
+
+    min-height: 300px;
+    
+    @include small-screen {
+        min-height: 200px;
+    }
+    
+    .label-text {
+        font-size: 15px;
+        color: #778899;
+
+        @include small-screen {
+            font-size: 14px;
+        }
+    }
+
+    .status-background {
+        width: 100%;
+        height: 300px;
+
+        @include small-screen {
+            height: 200px;
+        }
+    }
+
+    /* The Apollo logo on the status bar. */
+    .apollo-logo {
+        position: absolute;
+
+        top: 40px;
+        left: 40px;
+        height: 46px;
+        width: 141px;
+
+        @include small-screen {
+            top: 28px;
+            left: 40px;
+            height: 27.6px;
+            width: 84.6px;
+        }
+    }
+
+    .throttle-panel {
+        position: absolute;
+
+        top: 30px;
+        right: 172px;
+        width: 100px;
+        height: 200px;
+
+        @include small-screen {
+            top: 20px;
+            right: 112px;
+            width: 75px;
+            height: 150px;
+        }
+    }
+
+    .brake-panel {
+        position: absolute;
+        
+        top: 30px;
+        right: 72px;
+        width: 100px;
+        height: 200px;
+
+        @include small-screen {
+            top: 20px;
+            right: 37px;
+            width: 75px;
+            height: 150px;
+        }
+    }
+
+    .speed-unit {
+        position: absolute;
+        color: #fff;
+
+        font-size: 10px;
+        top: 122px;
+        right: 118px;
+
+        @include small-screen {
+            font-size: 8px;
+            top: 98px;
+            right: 102px;
+        }
+    }
+
+    .speed-panel {
+        position: absolute;
+        text-align: center;
+        color: #fff;
+        width: 100px;
+        height: 100px;
+
+        top: 85px;
+        right: 122px;
+        
+        @include small-screen {
+            top: 56px;
+            right: 62px;
+        }
+
+        .speed-read {
+            font-family: Arial;
+            font-weight: lighter;
+
+            font-size: 50px;
+
+            @include small-screen {
+                font-size: 36px;
+            }
+        }
+
+        .driving-mode {
+            font-family: Arial;
+            font-weight: 300;
+            color: #30A5FF;
+
+            margin-top: 5px;
+            font-size: 15px;
+            
+            @include small-screen {
+                margin-top: 15px;
+                font-size: 11px;
+            }
+        }
+    }
+
+    .meter-text-accelerator {
+        position: absolute;
+        color: #ffffff;
+
+        top: 240px;
+        right: 190px;
+
+        @include small-screen {
+            top: 175px;
+            right: 135px;
+        }
+    }
+
+    .meter-text-brake {
+        position: absolute;
+        color: #ffffff;
+
+        top: 240px;
+        right: 80px;
+
+        @include small-screen {
+            top: 175px;
+            right: 35px;
+        }
+    }
+
+    .wheel {
+        position: absolute;
+
+        top: 30px;
+        right: 420px;
+
+        @include small-screen {
+            top: 20px;
+            right: 300px;
+        }
+
+        .wheel-background {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            z-index: 5;
+
+            width: 200px;
+            height: 130px;
+            
+            @include small-screen {
+                width: 140px;
+                height: 91px;
+            }
+        }
+
+        .wheel-image {
+            position: absolute;
+            z-index: 10;
+
+            top: 28px;
+            right: 62px;
+            width: 76px;
+            height: 76px;
+
+            @include small-screen {
+                top: 19.6px;
+                right: 43.4px;
+                width: 53.2px;
+                height: 53.2px;
+            }
+        }
+
+        .left-arrow {
+            position: absolute;
+            z-index: 10;
+
+            top: 55px;
+            right: 170px;
+            width: 19px;
+            height: 22px;
+
+            @include small-screen {
+                top: 38.5px;
+                right: 119px;
+                width: 13.3px;
+                height: 15.4px;
+            }
+        }
+
+        .right-arrow {
+            position: absolute;
+            z-index: 10;
+
+            top: 55px;
+            right: 10px;
+            width: 19px;
+            height: 22px;
+
+            @include small-screen {
+                top: 38.5px;
+                right: 7px;
+                width: 13.3px;
+                height: 15.4px;
+            }
+        }
+
+        .left-label-text {
+            position: absolute;
+            color: #ffffff;
+
+            top: 58px;
+            right: 210px;
+
+            @include small-screen {
+                top: 40.6px;
+                right: 147px;
+            }
+        }
+
+        .right-label-text {
+            position: absolute;
+            color: #ffffff;
+
+            top: 58px;
+            right: -50px;
+
+            @include small-screen {
+                top: 40.6px;
+                right: -35px;
+            }
+        }
+    }
+
+    .traffic-light-indicator {
+        position: absolute;
+
+        top: 180px;
+        right: 590px;
+
+        @include small-screen {
+            top: 126px;
+            right: 420px;
+        }
+        
+        .green {
+            position: absolute;
+
+            top: 0px;
+            left: 0px;
+            width: 40px;
+            height: 40px;
+
+            @include small-screen {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        .yellow {
+            position: absolute;
+
+            top: 0px;
+            left: 50px;
+            width: 40px;
+            height: 40px;
+
+            @include small-screen {
+                left: 35px;
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        .red {
+            position: absolute;
+
+            top: 0px;
+            left: 100px;
+            width: 40px;
+            height: 40px;
+
+            @include small-screen {
+                left: 70px;
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        .traffic-light-label-text {
+            position: absolute;
+            color: #ffffff;
+
+            top: 60px;
+            left: 25px;
+            width: 200px;
+
+            @include small-screen {
+                top: 48px;
+                left: 4px;
+                width: 140px;
+            }
+        }
+    }
+}
+
+.route-editing-bar {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+
+    background: #102244;
+
+    min-height: 90px;
+
+    @include small-screen {
+        min-height: 60px;
+    }
+
+    .editing-panel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .button {
+            height: 90px;
+            width: 15%;
+            min-width: 150px;
+
+            border: none;
+            padding: 10px;
+
+            background: #102244;
+
+            @include small-screen {
+                height: 60px;
+                padding: 5px;
+            }
+
+            img {
+                top: 23px;
+                display: block;
+                margin: 15px auto;
+
+                @include small-screen {
+                    top: 13px;
+                    margin: 5px auto;
+                }
+            }
+
+            span {
+                font-family:PingFangSC-Light;
+                font-size: 14px;
+                color: #d8d8d8;
+                text-align: center;
+
+                @include small-screen {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .button:hover{
+            background: #09182C;
+        }
+    }
+
+    .exit-button, .editing-tip {
+        position: absolute;
+        top: 0px;
+
+        height: 90px;
+        width: 90px;
+        border: none;
+
+        background: #102244;
+        color:#d8d8d8;
+        font-size: 35px;
+
+        @include small-screen {
+            height: 60px;
+            width:  60px;
+
+            font-size: 20px;
+        }
+    }
+
+    .exit-button {
+        right: 0px;
+        padding: 25px;
+
+        @include small-screen {
+            padding: 18px;
+        }
+    }
+
+    .exit-button:hover {
+        background: #09182C;
+    }
+
+    .editing-tip {
+        left: 0px;
+
+        img {
+            position: absolute;
+            top: 35%;
+            left: 37%;
+
+           @include small-screen {
+                top: 30%;
+                left: 32%;
+            }
+        }
+
+        p {
+            position: absolute;
+            width: 400px;
+            top: 120%;
+            left: 15px;
+            padding: 20px;
+
+            background-color: #FFFFFF;
+            color: #999999;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap;
+            border-radius: 3px;
+
+            @include small-screen {
+                left: 5px;
+            }
+        }
+
+        p:before {
+            position: absolute;
+            top: -20px;
+            left: 13px;
+            content: '';
+
+            border-style: solid;
+            border-width: 0px 20px 20px 20px;
+            border-color: rgba(0,0,0,0) rgba(0,0,0,0) #FFFFFF rgba(0,0,0,0);
+
+            @-moz-document url-prefix() {
+                top: -38px;
+            }
+
+            @include small-screen {
+                left: 8px;
+            }
+        }
+    }
+}
+
+
+
+.loader {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #000C17;
+
+    .img-container {
+        position: absolute;
+
+        top: 35%;
+        left: 25%;
+        width: 50%;
+        height: 40%;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        .status-message {
+            font-size: 18px;
+            color: #FFFFFF;
+            text-align: center;
+
+            animation-name: flash;
+            animation-duration: 2s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-play-state: running;
+
+            @keyframes flash {
+                from {color: #FFFFFF;}
+                to {color: #000C17;}
+            }
+        }
+    }
+}
